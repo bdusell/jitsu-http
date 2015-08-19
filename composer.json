@@ -1,0 +1,19 @@
+{
+  "name": "jitsu/http",
+  "description": "Object-oriented HTTP request and response interfaces.",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "../jitsu-array"
+    }
+  ],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "Jitsu\\": "src/"
+    }
+  },
+  "require": {
+    "jitsu/array": "dev-master"
+  }
+}
