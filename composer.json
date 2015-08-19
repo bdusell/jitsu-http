@@ -1,19 +1,22 @@
 {
   "name": "jitsu/http",
-  "description": "Object-oriented HTTP request and response interfaces.",
-  "repositories": [
+  "description": "Object-oriented HTTP request and response interfaces",
+  "keywords": ["http", "request", "response"],
+  "license": "MIT",
+  "authors": [
     {
-      "type": "vcs",
-      "url": "../jitsu-array"
+      "name": "Brian DuSell",
+      "email": "bdusell@gmail.com",
+      "role": "Developer"
     }
   ],
-  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.3.0",
+    "jitsu/array": "^0.1.0"
+  },
   "autoload": {
     "psr-4": {
       "Jitsu\\": "src/"
     }
-  },
-  "require": {
-    "jitsu/array": "dev-master"
   }
 }

@@ -44,7 +44,7 @@ class CurrentResponse extends ResponseBase {
 
 	public function redirect($url, $code, $reason = null) {
 		if($reason === null) {
-			return r::redirect($url, $code, $reason = '');
+			return r::redirect($url, $code);
 		} else {
 			return parent::redirect($url, $code, $reason);
 		}
