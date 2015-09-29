@@ -3,6 +3,7 @@
 namespace Jitsu\Http;
 
 use Jitsu\Response as r;
+use Jitsu\ArrayUtil;
 
 class CurrentResponse extends ResponseBase {
 
@@ -29,12 +30,17 @@ class CurrentResponse extends ResponseBase {
 	public function addCookie($name, $value, $attrs = array()) {
 		// TODO
 		$attrs = array_change_key_case($attrs);
+		if(ArrayUtil::hasKey($attrs, 'max-age')) {
+			$expires = time() + $attrs['max-age'];
+		} else {
+			$expires = ArrayUtil::get($attrs, 'expires');
+		}
 		r::addCookie(
 			$name,
 			$value,
-			\Jitsu\ArrayUtil::get($attrs, 'max-age'),
-			\Jitsu\ArrayUtil::get($attrs, 'path'),
-			\Jitsu\ArrayUtil::get($attrs, 'domain')
+			$expires,
+			ArrayUtil::get($attrs, 'path'),
+			ArrayUtil::get($attrs, 'domain')
 		);
 	}
 

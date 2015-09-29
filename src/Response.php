@@ -60,18 +60,21 @@ class Response {
 	 *
 	 * @param string $name
 	 * @param string $value
-	 * @param int|null $lifespan
-	 * @param string|null $domain
+	 * @param int|null $expires
 	 * @param string|null $path
+	 * @param string|null $domain
 	 */
 	public static function addCookie(
-		$name, $value,
-		$lifespan = null, $domain = null, $path = null
+		$name,
+		$value,
+		$expires = null,
+		$path = null,
+		$domain = null
 	) {
 		setcookie(
 			$name,
 			$value,
-			$lifespan === null ? 0 : time() + $lifespan,
+			$expires === null ? 0 : $expires,
 			$path,
 			$domain
 		);
