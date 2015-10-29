@@ -38,6 +38,14 @@ class CurrentRequest extends RequestBase {
 		return r::bodyStream();
 	}
 
+	public function getOriginIpAddress() {
+		return r::originIpAddress();
+	}
+
+	public function getOriginPort() {
+		return r::originPort();
+	}
+
 	public function method() {
 		static $result = null;
 		if($result === null) {

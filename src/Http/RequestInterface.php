@@ -65,4 +65,18 @@ interface RequestInterface {
 	 * @return resource
 	 */
 	public function getBodyStream();
+
+	/**
+	 * Get the IP address of the remote endpoint.
+	 *
+	 * @return string
+	 */
+	public function getOriginIpAddress();
+
+	/**
+	 * Get the port number of the remote endpoint.
+	 *
+	 * @return string
+	 */
+	public function getOriginPort();
 }

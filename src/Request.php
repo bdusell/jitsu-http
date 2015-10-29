@@ -241,8 +241,7 @@ class Request {
 	/**
 	 * Get the port number of the remote endpoint.
 	 *
-	 * TODO
-	 * @return int
+	 * @return string
 	 */
 	public static function originPort() {
 		return $_SERVER['REMOTE_PORT'];
@@ -251,7 +250,6 @@ class Request {
 	/**
 	 * Timestamp of the start of the request.
 	 *
-	 * TODO
 	 * @return int
 	 */
 	public static function timestamp() {

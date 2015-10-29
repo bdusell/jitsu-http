@@ -318,4 +318,22 @@ abstract class RequestBase implements RequestInterface {
 	public function bodyStream() {
 		return $this->getBodyStream();
 	}
+
+	/**
+	 * Get the IP address of the remote endpoint.
+	 *
+	 * @return string
+	 */
+	public function originIpAddress() {
+		return $this->getOriginIpAddress();
+	}
+
+	/**
+	 * Get the port number of the remote endpoint.
+	 *
+	 * @return string
+	 */
+	public function originPort() {
+		return $this->getOriginPort();
+	}
 }
