@@ -4,6 +4,9 @@ namespace Jitsu;
 
 /**
  * Get information about the current HTTP request being processed.
+ *
+ * The class `\Jitsu\Http\CurrentRequest` provides the same information through
+ * an object-oriented interface. It is recommended to use that instead.
  */
 class Request {
 
@@ -11,6 +14,8 @@ class Request {
 
 	/**
 	 * Get the URI's scheme (`http` or `https`).
+	 *
+	 * @return string
 	 */
 	public static function scheme() {
 		return $_SERVER['REQUEST_SCHEME'];
@@ -18,6 +23,8 @@ class Request {
 
 	/**
 	 * Get the protocol/version indicated in the HTTP request.
+	 *
+	 * @return string
 	 */
 	public static function protocol() {
 		return $_SERVER['SERVER_PROTOCOL'];
@@ -25,6 +32,8 @@ class Request {
 
 	/**
 	 * Get the value of the `Host` header.
+	 *
+	 * @return string
 	 */
 	public static function host() {
 		return $_SERVER['HTTP_HOST'];
@@ -32,6 +41,8 @@ class Request {
 
 	/**
 	 * Get the HTTP method used in the request (`GET`, `POST`, etc.).
+	 *
+	 * @return string
 	 */
 	public static function method() {
 		return $_SERVER['REQUEST_METHOD'];
@@ -39,6 +50,8 @@ class Request {
 
 	/**
 	 * Get the full, raw request URI.
+	 *
+	 * @return string
 	 */
 	public static function uri() {
 		return $_SERVER['REQUEST_URI'];
@@ -46,6 +59,8 @@ class Request {
 
 	/**
 	 * Get the query string of the URI.
+	 *
+	 * @return string
 	 */
 	public static function queryString() {
 		return $_SERVER['QUERY_STRING'];
@@ -53,6 +68,11 @@ class Request {
 
 	/**
 	 * Look up a form-encoded parameter from the request.
+	 *
+	 * @param string $name
+	 * @param mixed $default A default value to get if the parameter does
+	 *                       not exist.
+	 * @return string|null|mixed
 	 */
 	public static function form($name, $default = null) {
 		return \Jitsu\ArrayUtil::get(self::formParams(), $name, $default);
@@ -60,10 +80,12 @@ class Request {
 
 	/**
 	 * Get all of the request's form-encoded parameters.
+	 *
+	 * @return string[]
 	 */
 	public static function formParams() {
 		// TODO Handle case where POST size is exceeded.
-		// TODO validate content-type
+		// TODO Validate Content-Type
 		static $form = null;
 		if($form === null) {
 			switch(self::method()) {
@@ -74,9 +96,12 @@ class Request {
 				$form = $_POST;
 				break;
 			case 'DELETE':
+			case 'HEAD':
+			case 'OPTIONS':
+			case 'TRACE':
 				/* Note that `parse_str` automatically decodes
-				 * the result, so be sure to use the raw
-				 * query string. */
+				 * the result, so we use the raw query string
+				 * here. */
 				parse_str(self::queryString(), $form);
 				break;
 			default:
@@ -89,10 +114,12 @@ class Request {
 	}
 
 	/**
-	 * Look up a request header.
+	 * Look up an HTTP header in the request.
 	 *
 	 * @param string $name
-	 * @return string|null
+	 * @param mixed $default Default value to get if the header does not
+	 *                       exist.
+	 * @return string|null|mixed
 	 */
 	public static function header($name, $default = null) {
 		$key = 'HTTP_' . self::_headerToEnv($name);
@@ -100,7 +127,12 @@ class Request {
 	}
 
 	/**
-	 * Get all request headers.
+	 * Get all HTTP headers sent with the request.
+	 *
+	 * If PHP is running through Apache (the function
+	 * `apache_request_header` is available), this should return the
+	 * header names in their original case. Otherwise, they will be in
+	 * lower case.
 	 *
 	 * @return string[]
 	 */
@@ -143,7 +175,9 @@ class Request {
 	 * Look up cookies sent in the request.
 	 *
 	 * @param string $name
-	 * @return string|null
+	 * @param mixed $default Default value to get if the cookie does not
+	 *                       exist.
+	 * @return string|null|mixed
 	 */
 	public static function cookie($name, $default = null) {
 		return \Jitsu\ArrayUtil::get($_COOKIE, $name, $default);

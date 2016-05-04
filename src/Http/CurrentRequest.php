@@ -4,6 +4,10 @@ namespace Jitsu\Http;
 
 use \Jitsu\Request as r;
 
+/**
+ * A sub-class of `RequestBase` and implementation of `RequestInterface` for
+ * the current HTTP request.
+ */
 class CurrentRequest extends RequestBase {
 
 	public function getMethod() {

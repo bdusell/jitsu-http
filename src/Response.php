@@ -4,6 +4,9 @@ namespace Jitsu;
 
 /**
  * Utilities for building the current HTTP response about to be sent.
+ *
+ * The class `\Jitsu\Http\CurrentResponse` provides the same capabilities
+ * through an object-oriented interface. It is recommended to use that instead.
  */
 class Response {
 
@@ -37,6 +40,8 @@ class Response {
 
 	/**
 	 * Get the currently set response code.
+	 *
+	 * @return int
 	 */
 	public static function statusCode() {
 		return http_response_code();
@@ -45,14 +50,15 @@ class Response {
 	/**
 	 * Set a header in the response.
 	 *
-	 * Overwrites any previous header with the same name. Must be called
-	 * before output is written, just like PHP `header`.
+	 * Must be called before output is written, just like PHP `header`.
+	 *
+	 * Does not override previously sent header with the same name.
 	 *
 	 * @param string $name
 	 * @param string $value
 	 */
 	public static function addHeader($name, $value) {
-		header("$name: $value");
+		header("$name: $value", false);
 	}
 
 	/**
@@ -109,14 +115,14 @@ class Response {
 	}
 
 	/**
-	 * Flush the PHP output buffer.
+	 * Flush the PHP output buffer and stop buffering.
 	 */
 	public static function flushOutputBuffer() {
 		ob_end_flush();
 	}
 
 	/**
-	 * Discard the contents of the PHP output buffer.
+	 * Discard the contents of the PHP output buffer and stop buffering.
 	 */
 	public static function clearOutputBuffer() {
 		ob_end_clean();
@@ -140,28 +146,5 @@ class Response {
 	 */
 	public static function bodyStream() {
 		return fopen(self::RESPONSE_BODY_STREAM, 'w');
-	}
-
-	/**
-	 * Shorthand for sending a PHP array as a JSON object in the response.
-	 *
-	 * @param array $obj
-	 * @param bool $pretty Whether to pretty-print the JSON output.
-	 */
-	public static function json($obj, $pretty = false) {
-		self::content_type('application/json');
-		echo JSONUtil::encode($obj, $pretty);
-	}
-
-	/**
-	 * Shorthand for sending a file with a given content type in the
-	 * response.
-	 *
-	 * @param string $path
-	 * @param string $content_type
-	 */
-	public static function file($path, $content_type) {
-		self::content_type($content_type);
-		readfile($path);
 	}
 }

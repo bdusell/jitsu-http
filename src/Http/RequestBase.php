@@ -2,6 +2,9 @@
 
 namespace Jitsu\Http;
 
+/**
+ * An extension of `RequestInterface` which offers some utility methods.
+ */
 abstract class RequestBase implements RequestInterface {
 
 	/**
@@ -46,7 +49,7 @@ abstract class RequestBase implements RequestInterface {
 	/**
 	 * Get the HTTP method used in the request.
 	 *
-	 * _Always_ returned in upper case (e.g. `'GET'`, `'PUT'`, etc.).
+	 * Always returned in upper case (e.g. `'GET'`, `'PUT'`, etc.).
 	 *
 	 * @return string
 	 */
@@ -91,11 +94,10 @@ abstract class RequestBase implements RequestInterface {
 	/**
 	 * Look up a form-encoded parameter from the request.
 	 *
-	 * Returns `null` if the parameter does not exist.
-	 *
 	 * @param string $name
-	 * @param mixed $default Default value.
-	 * @return string|null
+	 * @param mixed $default Default value to get if the parameter does not
+	 *                       exist.
+	 * @return string|null|mixed
 	 */
 	public function form($name, $default = null) {
 		return \Jitsu\ArrayUtil::get($this->formParams(), $name, $default);
@@ -107,8 +109,8 @@ abstract class RequestBase implements RequestInterface {
 	 * Returns an array mapping the names of the form-encoded parameters
 	 * sent in the request to their values. All keys and values are
 	 * decoded. The parameters are taken from the appropriate part of the
-	 * request based on the HTTP method used. For `GET` and `DELETE`, they
-	 * are parsed from the query string. For everything else, they are
+	 * request based on the HTTP method used. For `GET`, `DELETE`, etc.
+	 * they are parsed from the query string, and otherwise they are
 	 * parsed from the request body.
 	 *
 	 * @return string[]
@@ -117,9 +119,13 @@ abstract class RequestBase implements RequestInterface {
 		switch($this->method()) {
 		case 'GET':
 		case 'DELETE':
+		case 'HEAD':
+		case 'OPTIONS':
+		case 'TRACE':
 			$query_str = $this->queryString();
 			break;
 		default:
+			// TODO Validate Content-Type
 			$query_str = $this->getBody();
 		}
 		parse_str($query_str, $result);
@@ -129,11 +135,10 @@ abstract class RequestBase implements RequestInterface {
 	/**
 	 * Look up a header sent in the request.
 	 *
-	 * Returns `null` if the header does not exist.
-	 *
 	 * @param string $name Case-insensitive name of the header.
-	 * @param mixed $default
-	 * @return string|null
+	 * @param mixed $default Default value to get if the header does not
+	 *                       exist.
+	 * @return string|null|mixed
 	 */
 	public function header($name, $default = null) {
 		$r = $this->getHeader($name);
@@ -153,6 +158,8 @@ abstract class RequestBase implements RequestInterface {
 
 	/**
 	 * Get the content type of the request.
+	 *
+	 * @return string|null
 	 */
 	public function contentType() {
 		return $this->getHeader('Content-Type');
@@ -290,6 +297,8 @@ abstract class RequestBase implements RequestInterface {
 	 *
 	 * Parses and decodes the cookie values.
 	 *
+	 * TODO: This is currently not implemented.
+	 *
 	 * @return string[]
 	 */
 	public function cookies() {
@@ -299,6 +308,7 @@ abstract class RequestBase implements RequestInterface {
 
 	private static function parseCookies($str) {
 		// TODO
+		// :(
 	}
 
 	/**

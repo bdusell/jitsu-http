@@ -2,6 +2,9 @@
 
 namespace Jitsu\Http;
 
+/**
+ * An extension of `ResponseInterface` which offers some utility methods.
+ */
 abstract class ResponseBase implements ResponseInterface {
 
 	/**
@@ -32,6 +35,8 @@ abstract class ResponseBase implements ResponseInterface {
 	/**
 	 * Add a cookie to the response.
 	 *
+	 * TODO: This has yet to be implemented.
+	 *
 	 * @param string $name
 	 * @param string $value
 	 * @param (string|bool)[] $attrs An array of attributes to assign to
@@ -47,6 +52,7 @@ abstract class ResponseBase implements ResponseInterface {
 
 	private static function formatCookie($name, $value, $attrs) {
 		// TODO
+		// :(
 	}
 
 	/**

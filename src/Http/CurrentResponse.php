@@ -5,6 +5,10 @@ namespace Jitsu\Http;
 use Jitsu\Response as r;
 use Jitsu\ArrayUtil;
 
+/**
+ * A sub-class of `ResponseBase` and implementation of `ResponseInterface` for
+ * the current HTTP response.
+ */
 class CurrentResponse extends ResponseBase {
 
 	public function setStatus($version, $code, $reason) {
@@ -62,13 +66,5 @@ class CurrentResponse extends ResponseBase {
 
 	public function sentHeaders() {
 		return r::sentHeaders();
-	}
-
-	public function json($obj, $pretty = false) {
-		return r::json($obj, $pretty);
-	}
-
-	public function file($path, $content_type) {
-		return r::file($path, $content_type);
 	}
 }

@@ -2,6 +2,9 @@
 
 namespace Jitsu\Http;
 
+/**
+ * An abstract interface to an HTTP request.
+ */
 interface RequestInterface {
 
 	/**
