@@ -4,20 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "931e9c28c6ce9e53e8139f20e29c3e38",
+    "hash": "c6a32f7f4f993b9862f3a4a0847e4683",
+    "content-hash": "49f1b192fd5d47d091a7e16cdd38c67e",
     "packages": [
         {
             "name": "jitsu/array",
-            "version": "0.1.0",
+            "version": "0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bdusell/jitsu-array.git",
-                "reference": "864ce9b83b3222c297b2f1c6fc8c87b5093ef7a2"
+                "reference": "1e86a19bbd79482d1a58862f8716e062fd724afe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bdusell/jitsu-array/zipball/864ce9b83b3222c297b2f1c6fc8c87b5093ef7a2",
-                "reference": "864ce9b83b3222c297b2f1c6fc8c87b5093ef7a2",
+                "url": "https://api.github.com/repos/bdusell/jitsu-array/zipball/1e86a19bbd79482d1a58862f8716e062fd724afe",
+                "reference": "1e86a19bbd79482d1a58862f8716e062fd724afe",
                 "shasum": ""
             },
             "require": {
@@ -48,7 +49,7 @@
                 "array",
                 "utility"
             ],
-            "time": "2015-09-19 00:28:51"
+            "time": "2016-05-07 07:25:40"
         }
     ],
     "packages-dev": [],
