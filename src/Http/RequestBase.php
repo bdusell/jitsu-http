@@ -77,7 +77,10 @@ abstract class RequestBase implements RequestInterface {
 	 * @return string
 	 */
 	public function path() {
-		return parse_url($this->getUri(), PHP_URL_PATH);
+		/* Note that it is necessary to pass the full URL to
+		 * `parse_url`, because `parse_url` can be tricked into
+		 * thinking that part of the path is a domain name. */
+		return parse_url($this->fullUrl(), PHP_URL_PATH);
 	}
 
 	/**
@@ -88,7 +91,10 @@ abstract class RequestBase implements RequestInterface {
 	 * @return string
 	 */
 	public function queryString() {
-		return parse_url($this->getUri(), PHP_URL_QUERY);
+		/* Note that it is necessary to pass the full URL to
+		 * `parse_url`, because `parse_url` can be tricked into
+		 * thinking that part of the path is a domain name. */
+		return parse_url($this->fullUrl(), PHP_URL_QUERY);
 	}
 
 	/**
